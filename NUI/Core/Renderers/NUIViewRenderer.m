@@ -16,6 +16,12 @@
         [view setBackgroundColor: [NUISettings getColorFromImage:@"background-image" withClass: className]];
     } else if ([NUISettings hasProperty:@"background-color" withClass:className]) {
         [view setBackgroundColor: [NUISettings getColor:@"background-color" withClass: className]];
+    } else if ([NUISettings hasProperty:@"background-color-top" withClass:className]) {
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = view.bounds;
+        gradient.colors = [NSArray arrayWithObjects:(id)[NUISettings getColor:@"background-color-top" withClass:className,
+                                                     (id)[NUISettings getColor:@"background-color-bottom" withClass:className, nil];
+                                                     [view.layer insertSublayer:gradient atIndex:0];
     }
     
     [self renderBorder:view withClass:className];
